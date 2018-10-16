@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="dev" default="/dev/input/js0"/>  <!--joystick device name-->
+    <arg name="joy_config" default="$(find p3at_teleop)/config/joy_config.yaml"/>  <!--path to configuration file-->
+    <arg name="topic" default="cmd_vel"/>  <!--topic where msgs will be published-->
+
+    <!--launch p3at robot-->
+    <node name="p3at" pkg="p2os_driver" type="p2os_driver" required="true">
+    <node name="rostopic" pkg="rostopic" type="rostopic" args="pub -1 /cmd_motor_state p2os_driver/MotorState 1"/>
+
+    <!--joystick reader node-->
+    <node name="joystick" pkg="joy" type="joy_node" required="true">
+        <param name="dev" value="$(arg dev)"/>  <!--set single (private) parameter-->
+    </node>
+
+    <!--load axis mapping parameters from yaml file-->
+    <rosparam command="load" file="$(arg joy_config)"/>
+    
+    <!--convert joy msgs to cmd_vel-->
+    <node name="joy_teleop" pkg="joy_teleop" type="joy_teleop.py">
+        <remap from="cmd_vel" to="$(arg topic)"/>  <!--topic (relative) remaping-->
+    </node>
+    
+    <!--vizualisation of robot model and sensor data-->
+    <include file="$(find p2os_urdf)/launch/pioneer3at_urdf.launch"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find p3at_teleop)/config/joy_teleop.rviz"/>
+
+</launch>
