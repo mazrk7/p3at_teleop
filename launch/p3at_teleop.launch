@@ -1,6 +1,8 @@
 <launch>
     <!-- Start the p2os driver for Pioneer robots e.g. the P3AT -->
-    <node pkg="p2os_driver" type="p2os_driver" name="p2os_driver"/>   
+    <node pkg="p2os_driver" type="p2os_driver" name="p2os_driver">
+        <param name="port" value="/dev/ttyUSB0"/>
+    </node>
 
     <!-- Linux joystick node -->
   	<node pkg="joy" type="joy_node" name="joy_node">
@@ -8,9 +10,12 @@
 	</node>
 
     <!-- Run the teleoperator node we have created -->
-    <node pkg="p3at_teleop" type="teleop_p3at" name="teleop_p3at"/>   
+    <node pkg="p3at_teleop" type="teleop_p3at" name="teleop_p3at">  
+        <param name="axis_linear" value="3"/>
+        <param name="axis_angular" value="0"/>
+    </node> 
 
     <!-- Enable the p2os motors -->
     <!-- Publish once to the topic name '/cmd_motor_state' a message of type 'p2os_driver/MotorState' with a value of '1' -->
-    <node name="rostopic" pkg="rostopic" type="rostopic" args="pub -1 /cmd_motor_state p2os_driver/MotorState 1"/>
+    <node name="rostopic" pkg="rostopic" type="rostopic" args="pub -1 /cmd_motor_state p2os_msgs/MotorState 1"/>
 </launch>
