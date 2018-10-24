@@ -5,8 +5,10 @@
     <arg name="topic" default="cmd_vel"/>  <!--topic where msgs will be published-->
 
     <!--launch p3at robot-->
-    <node name="p3at" pkg="p2os_driver" type="p2os_driver" required="true">
-    <node name="rostopic" pkg="rostopic" type="rostopic" args="pub -1 /cmd_motor_state p2os_driver/MotorState 1"/>
+    <node pkg="p2os_driver" type="p2os_driver" name="p2os_driver" required="true">
+        <param name="port" value="/dev/ttyUSB0"/>
+    </node>
+    <node name="rostopic" pkg="rostopic" type="rostopic" args="pub -1 /cmd_motor_state p2os_msgs/MotorState 1"/>
 
     <!--joystick reader node-->
     <node name="joystick" pkg="joy" type="joy_node" required="true">
