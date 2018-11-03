@@ -1,7 +1,11 @@
 <launch>
+    <!-- Arguments to configure the launch file e.g. whether to run RViz or not -->
+    <arg name="rviz" default="false"/> 
+    
     <!-- Start the p2os driver for Pioneer robots e.g. the P3AT -->
     <node pkg="p2os_driver" type="p2os_driver" name="p2os_driver">
         <param name="port" value="/dev/ttyUSB0"/>
+        <param name="pulse" value="1.0"/>
     </node>
 
     <!-- Linux joystick node -->
@@ -10,6 +14,7 @@
 	</node>
 
     <!-- Run the teleoperator node we have created -->
+    <!-- Setting appropriate parameters to refer to the correct joystick axes for commands -->
     <node pkg="p3at_teleop" type="teleop_p3at" name="teleop_p3at">  
         <param name="axis_linear" value="3"/>
         <param name="axis_angular" value="0"/>
@@ -18,4 +23,12 @@
     <!-- Enable the p2os motors -->
     <!-- Publish once to the topic name '/cmd_motor_state' a message of type 'p2os_driver/MotorState' with a value of '1' -->
     <node name="rostopic" pkg="rostopic" type="rostopic" args="pub -1 /cmd_motor_state p2os_msgs/MotorState 1"/>
+    
+    <!-- IF using RViz, push the following nodes into a new namespace -->
+    <group ns="p3at_rviz" if="$(arg rviz)">
+        <!-- Example of how to setup RViz to visualise a robot model (provided in URDF format) -->
+        <!-- URDF file is found in the p2os_urdf package whilst the RViz setup is provided in this package's "config" directory -->
+        <include file="$(find p2os_urdf)/launch/pioneer3at_urdf.launch"/>
+        <node name="rviz" pkg="rviz" type="rviz" args="-d $(find p3at_teleop)/config/joy_teleop.rviz"/>
+    </group>
 </launch>

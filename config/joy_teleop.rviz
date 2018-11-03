@@ -47,19 +47,76 @@ Visualization Manager:
       Reference Frame: <Fixed Frame>
       Value: true
     - Class: rviz/TF
-      Enabled: false
+      Enabled: true
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        back_sonar:
+          Value: true
+        base_link:
+          Value: true
+        front_sonar:
+          Value: true
+        odom:
+          Value: true
+        p3at_back_left_axle:
+          Value: true
+        p3at_back_left_hub:
+          Value: true
+        p3at_back_left_wheel:
+          Value: true
+        p3at_back_right_axle:
+          Value: true
+        p3at_back_right_hub:
+          Value: true
+        p3at_back_right_wheel:
+          Value: true
+        p3at_front_left_axle:
+          Value: true
+        p3at_front_left_hub:
+          Value: true
+        p3at_front_left_wheel:
+          Value: true
+        p3at_front_right_axle:
+          Value: true
+        p3at_front_right_hub:
+          Value: true
+        p3at_front_right_wheel:
+          Value: true
+        top_plate:
+          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        {}
+        odom:
+          base_link:
+            back_sonar:
+              {}
+            front_sonar:
+              {}
+            p3at_back_left_axle:
+              p3at_back_left_hub:
+                p3at_back_left_wheel:
+                  {}
+            p3at_back_right_axle:
+              p3at_back_right_hub:
+                p3at_back_right_wheel:
+                  {}
+            p3at_front_left_axle:
+              p3at_front_left_hub:
+                p3at_front_left_wheel:
+                  {}
+            p3at_front_right_axle:
+              p3at_front_right_hub:
+                p3at_front_right_wheel:
+                  {}
+            top_plate:
+              {}
       Update Interval: 0
-      Value: false
+      Value: true
     - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
