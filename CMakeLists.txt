@@ -26,7 +26,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES p3at_teleop
-  CATKIN_DEPENDS geometry_msgs p2os_driver p2os_urdf joy_node roscpp rospy sensor_msgs
+  CATKIN_DEPENDS geometry_msgs p2os_driver p2os_urdf joy roscpp rospy sensor_msgs
 #  DEPENDS system_lib
 )
 
