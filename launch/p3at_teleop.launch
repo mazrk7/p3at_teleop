@@ -9,14 +9,14 @@
     </node>
 
     <!-- Linux joystick node -->
-  	<node pkg="joy" type="joy_node" name="joy_node">
-    	<param name="dev" value="/dev/input/js0"/>
-	</node>
+    <node pkg="joy" type="joy_node" name="joy_node">
+        <param name="dev" value="/dev/input/js0"/>
+    </node>
 
     <!-- Run the teleoperator node we have created -->
     <!-- Setting appropriate parameters to refer to the correct joystick axes for commands -->
     <node pkg="p3at_teleop" type="teleop_p3at" name="teleop_p3at">  
-        <param name="axis_linear" value="3"/>
+        <param name="axis_linear" value="1"/>
         <param name="axis_angular" value="0"/>
     </node> 
 
