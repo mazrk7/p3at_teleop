@@ -40,7 +40,14 @@ TeleopP3AT::TeleopP3AT(ros::NodeHandle &nh, int lin, int ang, double ang_s, doub
 
 void TeleopP3AT::joyCallback(const sensor_msgs::Joy::ConstPtr& joy_msg)
 {
-    /* Enter joystick callback code here for exercise */
+    // Create a Twist message to send command velocities
+    geometry_msgs::Twist twist_msg;
+
+    // Scale joystick commands to create appropriate velocities
+    twist_msg.angular.z = ang_scale_ * joy_msg->axes[angular_];
+    twist_msg.linear.x = lin_scale_ * joy_msg->axes[linear_];
+    
+    vel_pub_.publish(twist_msg);
 }
 
 
